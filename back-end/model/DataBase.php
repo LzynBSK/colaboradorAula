@@ -7,7 +7,7 @@ class DataBase{
 
     public function __construct(){
         $this->host = 'localhost';
-        $this->db = 'rifa';
+        $this->db = 'sistema_rifa';
         $this->user = 'root';
         $this->pass = '';
     }
