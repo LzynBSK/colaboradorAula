@@ -15,20 +15,22 @@ class UsuarioDAO
         }
     }
 
+
+
     public function insert(Usuario $usuario)
     {
-        $stmt = $this->pdo->prepare("INSERT INTO Usuario (email, senha, nome, foto, tel, endereco, cpf) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $email = $usuario->getEmail();
-        $senha = $usuario->getSenha();
-        $nome = $usuario->getNome();
-        $foto = $usuario->getFoto();
-        $tel = $usuario->getTel();
-        $endereco = $usuario->getEndereco();
-        $cpf = $usuario->getCpf();
+        $stmt = $this->pdo->prepare("INSERT INTO Usuario (email, senha, nome, foto, tel, endereco, cpf) VALUES (:email,:senha,:nome,:foto,:tel,:endereco,:cpf)");
+        $dados = [
+            'email'     => $usuario->getEmail(),
+            'senha'     => $usuario->getSenha(),
+            'nome'      => $usuario->getNome(),
+            'foto'      => $usuario->getFoto(),
+            'tel'       => $usuario->getTel(),
+            'endereco'  => $usuario->getEndereco(),
+            'cpf'       => $usuario->getCpf()
+        ];
         try {
-            $stmt->execute([
-                
-            ]);
+            $stmt->execute($dados);
             return $this->pdo->lastInsertId();
         } catch (PDOException $e) {
             throw new Exception('Erro ao inserir usuário: ' . $e->getMessage());
