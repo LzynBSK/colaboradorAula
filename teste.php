@@ -51,11 +51,15 @@
     
       // cria um novo objeto UsuarioDAO e insere o novo usuário no banco de dados
       $usuarioDAO = new UsuarioDAO();
-      $result = $usuarioDAO->insert($usuario);
-      if($result){
-        $usuario->setId($result);
+      $usuario = $usuarioDAO->insert($usuario);
+      if($usuario){
+        var_dump($usuario);
       }
-      var_dump($usuario);
+      else{
+        var_dump($usuarioDAO->getErro());
+      }
+      
+      var_dump($usuarioDAO->selectByNome());
     
  
     }

@@ -3,13 +3,6 @@
 class Calculadora{
     private $result;
 
-    //Assim que o objeto é criado, os atributos são inicializados com os valores pré-definidos;
-    // function __construct()
-    // {
-    //     $this->result = 0.0;
-    //     $this->entrada = 0.0;
-    // }
-
     public function getResult(){
         return $this->result;
     }

@@ -4,20 +4,26 @@ require_once 'Usuario.php';
 class UsuarioDAO
 {
     private $pdo;
+    private $erro;
+
+    public function getErro(){
+        return $this->erro;
+    }
 
     public function __construct()
     {
         try {
             $this->pdo = (new DataBase())->connection();
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
-            throw new Exception('Erro ao conectar com o banco de dados: ' . $e->getMessage());
+        } catch (\PDOException $e) {
+            $this->erro = 'Erro ao conectar com o banco de dados: ' . $e->getMessage();
+            die;
         }
     }
 
 
 
-    public function insert(Usuario $usuario)
+    public function insert(Usuario $usuario): Usuario|bool
     {
         $stmt = $this->pdo->prepare("INSERT INTO Usuario (email, senha, nome, foto, tel, endereco, cpf) VALUES (:email,:senha,:nome,:foto,:tel,:endereco,:cpf)");
         $dados = [
@@ -31,40 +37,41 @@ class UsuarioDAO
         ];
         try {
             $stmt->execute($dados);
-            return $this->pdo->lastInsertId();
-        } catch (PDOException $e) {
-            throw new Exception('Erro ao inserir usuário: ' . $e->getMessage());
+            return $this->selectById($this->pdo->lastInsertId());
+        } catch (\PDOException $e) {
+            $this->erro = 'Erro ao inserir usuário: ' . $e->getMessage();
+            return false;
         }
     }
 
-    public function selectById($id)
+    public function selectById($id): Usuario|bool
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Usuario WHERE id = ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Usuario WHERE Usuario.id = :id");
         try {
-            $stmt->execute([$id]);
-            $row = $stmt->fetch(PDO::FETCH_ASSOC);
-            if ($row) {
+            if($stmt->execute(['id'=>$id])){
+                $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 return new Usuario($row['id'], $row['email'], $row['senha'], $row['nome'], $row['foto'], $row['tel'], $row['endereco'], $row['cpf'], $row['creation_time'], $row['modification_time']);
             }
-            return null;
-        } catch (PDOException $e) {
-            throw new Exception('Erro ao selecionar usuário: ' . $e->getMessage());
+            return false;   
+
+        } catch (\PDOException $e) {
+            $this->erro = 'Erro ao selecionar usuário: ' . $e->getMessage();
+            return false;
         }
     }
 
-    public function selectByNome($nome)
+    public function selectByNome($nome="")
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM Usuario WHERE nome LIKE ?");
+        $stmt = $this->pdo->prepare("SELECT * FROM Usuario WHERE nome LIKE :nome");
         $nome = '%' . $nome . '%';
         try {
-            $stmt->execute([$nome]);
-            return $stmt->fetchAll(PDO::FETCH_CLASS, "Usuario");
-            // $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            // $usuarios = [];
-            // foreach ($rows as $row) {
-            //     $usuarios[] = new Usuario($row['id'], $row['email'], $row['senha'], $row['nome'], $row['foto'], $row['tel'], $row['endereco'], $row['cpf'], $row['creation_time'], $row['modification_time']);
-            // }
-            // return $usuarios;
+            $stmt->execute(['nome'=>$nome]);
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $usuarios = [];
+            foreach ($rows as $row) {
+                $usuarios[] = new Usuario($row['id'], $row['email'], $row['senha'], $row['nome'], $row['foto'], $row['tel'], $row['endereco'], $row['cpf'], $row['creation_time'], $row['modification_time']);
+            }
+            return $usuarios;
         } catch (PDOException $e) {
             throw new Exception('Erro ao selecionar usuários por nome: ' . $e->getMessage());
         }
