@@ -66,12 +66,13 @@ class UsuarioDAO
         $nome = '%' . $nome . '%';
         try {
             $stmt->execute(['nome'=>$nome]);
-            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $usuarios = [];
-            foreach ($rows as $row) {
-                $usuarios[] = new Usuario($row['id'], $row['email'], $row['senha'], $row['nome'], $row['foto'], $row['tel'], $row['endereco'], $row['cpf'], $row['creation_time'], $row['modification_time']);
-            }
-            return $usuarios;
+            return $stmt->fetchAll(PDO::FETCH_CLASS,"Usuario");
+            // $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            // $usuarios = [];
+            // foreach ($rows as $row) {
+            //     $usuarios[] = new Usuario($row['id'], $row['email'], $row['senha'], $row['nome'], $row['foto'], $row['tel'], $row['endereco'], $row['cpf'], $row['creation_time'], $row['modification_time']);
+            // }
+            // return $usuarios;
         } catch (PDOException $e) {
             throw new Exception('Erro ao selecionar usuários por nome: ' . $e->getMessage());
         }

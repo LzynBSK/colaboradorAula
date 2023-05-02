@@ -1,30 +1,33 @@
 <?php
 
 class Usuario {
-  private $id;
-  private $email;
-  private $senha;
-  private $nome;
-  private $foto;
-  private $tel;
-  private $endereco;
-  private $cpf;
-  private $creation_time;
-  private $modification_time;
+  private int     $id;
+  private string  $email;
+  private string  $senha;
+  private string  $nome;
+  private string  $foto;
+  private string  $tel;
+  private string  $endereco;
+  private string  $cpf;
+  private string  $creation_time;
+  private string  $modification_time;
+
 
   public function __construct($id="", $email="", $senha="", $nome="", $foto="", $tel="", $endereco="", $cpf="", $creation_time="", $modification_time="") {
-    $this->id = $id;
-    $this->email = $email;
-    $this->senha = $senha;
-    $this->nome = $nome;
-    $this->foto = $foto;
-    $this->tel = $tel;
-    $this->endereco = $endereco;
-    $this->cpf = $cpf;
-    $this->creation_time = $creation_time;
-    $this->modification_time = $modification_time;
+    $this->id .= $id;
+    $this->email .= $email;
+    $this->senha .= $senha;
+    $this->nome .= $nome;
+    $this->foto .= $foto;
+    $this->tel .= $tel;
+    $this->endereco .= $endereco;
+    $this->cpf .= $cpf;
+    $this->creation_time .= $creation_time;
+    $this->modification_time .= $modification_time;
 
   }
+
+
 
   // Getters e Setters
   public function getId() {

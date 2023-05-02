@@ -57,12 +57,12 @@
       }
       else{
         var_dump($usuarioDAO->getErro());
-      }
+      }         
       
-      var_dump($usuarioDAO->selectByNome());
-    
- 
     }
+
+    $usuarioDAO = new UsuarioDAO();
+    var_dump($usuarioDAO->selectByNome());
     ?>
 </body>
 </html>
