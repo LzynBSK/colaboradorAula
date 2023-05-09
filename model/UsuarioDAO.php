@@ -72,7 +72,18 @@ class UsuarioDAO
     }
 
     public function select($filtro=""){
-        $cmdSql = "SELECT * FROM usuario WHERE email LIKE '%%' OR nome LIKE '%%' or cpf LIKE '%%' or tel LIKE '%%'";
+        $cmdSql = 'SELECT * FROM usuario WHERE email LIKE :email OR nome LIKE :nome or cpf LIKE :cpf or tel LIKE :tel';
+        $cx = $this->pdo->prepare($cmdSql);
+        $cx->bindValue(':email',"%$filtro%");
+        $cx->bindValue(':nome',"%$filtro%");
+        $cx->bindValue(':cpf',"%$filtro%");
+        $cx->bindValue(':tel',"%$filtro%");
+        $cx->execute();
+        if($cx->rowCount() > 0){
+            $cx->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
+            return $cx->fetchAll();
+        }
+        return false;        
     }
 
     public function selectByNome($nome="")
