@@ -38,17 +38,19 @@
     // verifica se os dados foram enviados pelo formulário
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // obtém os dados do formulário
-      $nome = $_POST['nome'];
-      $email = $_POST['email'];
-      $senha = $_POST['senha'];
-      $foto = $_POST['foto'];
-      $tel = $_POST['tel'];
-      $endereco = $_POST['endereco'];
-      $cpf = $_POST['cpf'];
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $senha = $_POST['senha'];
+        $foto = $_POST['foto'];
+        $tel = $_POST['tel'];
+        $endereco = $_POST['endereco'];
+        $cpf = $_POST['cpf'];
     
       // cria um novo objeto Usuario com os dados do formulário
-      $usuario = new Usuario(null, $email, $senha, $nome, $foto, $tel, $endereco, $cpf, null, null);
+      $usuario = new Usuario(0, $email, $senha, $nome, $foto, $tel, $endereco, $cpf, "", "");
     
+      var_dump($usuario);
+
       // cria um novo objeto UsuarioDAO e insere o novo usuário no banco de dados
       $usuarioDAO = new UsuarioDAO();
       $usuario = $usuarioDAO->insert($usuario);
@@ -61,8 +63,8 @@
       
     }
 
-    $usuarioDAO = new UsuarioDAO();
-    var_dump($usuarioDAO->selectByNome());
+    // $usuarioDAO = new UsuarioDAO();
+    // var_dump($usuarioDAO->selectByNome());
     ?>
 </body>
 </html>

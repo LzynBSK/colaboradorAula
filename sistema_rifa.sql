@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 18-Abr-2023 às 12:05
+-- Tempo de geração: 09-Maio-2023 às 12:31
 -- Versão do servidor: 8.0.31
 -- versão do PHP: 8.0.26
 
@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE IF NOT EXISTS `usuario` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `email` varchar(200) DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `senha` varchar(200) DEFAULT NULL,
   `nome` varchar(200) DEFAULT NULL,
   `foto` varchar(200) DEFAULT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `cpf` (`cpf`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Extraindo dados da tabela `usuario`
@@ -206,7 +206,8 @@ INSERT INTO `usuario` (`id`, `email`, `senha`, `nome`, `foto`, `tel`, `endereco`
 (141, 'jessicacosta@gmail.com', 'senha123', 'Jessica Costa', 'foto13.jpg', '11765432109', 'Rua M, 2829', 45778901234, '2023-04-18 12:04:16', '2023-04-18 12:04:16'),
 (142, 'leonardocarvalho@hotmail.com', 'senha456', 'Leonardo Carvalho', 'foto14.jpg', '11754321098', 'Rua N, 3031', 58789012345, '2023-04-18 12:04:16', '2023-04-18 12:04:16'),
 (143, 'camilasantos@yahoo.com', 'senha789', 'Camila Santos', 'foto15.jpg', '11743210987', 'Rua O, 3233', 67890123466, '2023-04-18 12:04:16', '2023-04-18 12:04:16'),
-(144, 'viniciusoliveira@gmail.com', 'senha123', 'Vinicius Oliveira', 'foto16.jpg', '11732109876', 'Rua P, 3435', 789012345, '2023-04-18 12:04:16', '2023-04-18 12:04:16');
+(144, 'viniciusoliveira@gmail.com', 'senha123', 'Vinicius Oliveira', 'foto16.jpg', '11732109876', 'Rua P, 3435', 789012345, '2023-04-18 12:04:16', '2023-04-18 12:04:16'),
+(163, 'camargoliveira@gmail.com', '3256723456345', 'ELITON-PC', 'gsdqqqqqqqqqgdf.png', '14996874866', 'Rua Joaquim Antunes de Souza', 45235835875, '2023-05-02 14:03:22', '2023-05-02 14:03:22');
 
 --
 -- Restrições para despejos de tabelas

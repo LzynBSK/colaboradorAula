@@ -13,18 +13,17 @@ class Usuario {
   private string  $modification_time;
 
 
-  public function __construct($id="", $email="", $senha="", $nome="", $foto="", $tel="", $endereco="", $cpf="", $creation_time="", $modification_time="") {
-    $this->id .= $id;
-    $this->email .= $email;
-    $this->senha .= $senha;
-    $this->nome .= $nome;
-    $this->foto .= $foto;
-    $this->tel .= $tel;
-    $this->endereco .= $endereco;
-    $this->cpf .= $cpf;
-    $this->creation_time .= $creation_time;
-    $this->modification_time .= $modification_time;
-
+  public function __construct($id=0, $email="", $senha="", $nome="", $foto="", $tel="", $endereco="", $cpf="", $creation_time="", $modification_time="") {
+    $this->id = $id;
+    $this->email = $email;
+    $this->senha = $senha;
+    $this->nome = $nome;
+    $this->foto = $foto;
+    $this->tel = $tel;
+    $this->endereco = $endereco;
+    $this->cpf = $cpf;
+    $this->creation_time = $creation_time;
+    $this->modification_time = $modification_time;
   }
 
 
