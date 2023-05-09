@@ -60,6 +60,21 @@ class UsuarioDAO
         }
     }
 
+    public function listarTodos(){
+        $cmdSql = "SELECT * FROM Usuario";
+        $cx = $this->pdo->prepare($cmdSql);
+        $cx->execute();
+        if($cx->rowCount() > 0){
+            $cx->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
+            return $cx->fetchAll();
+        }
+        return false;
+    }
+
+    public function select($filtro=""){
+        $cmdSql = "SELECT * FROM usuario WHERE email LIKE '%%' OR nome LIKE '%%' or cpf LIKE '%%' or tel LIKE '%%'";
+    }
+
     public function selectByNome($nome="")
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Usuario WHERE nome LIKE :nome");
