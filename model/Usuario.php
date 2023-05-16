@@ -1,29 +1,31 @@
 <?php
 
 class Usuario {
-  private int     $id;
-  private string  $email;
-  private string  $senha;
-  private string  $nome;
-  private string  $foto;
-  private string  $tel;
-  private string  $endereco;
-  private string  $cpf;
-  private string  $creation_time;
-  private string  $modification_time;
+  public int     $id;
+  public string  $email;
+  public string  $senha;
+  public string  $nome;
+  public string  $foto;
+  public string  $tel;
+  public string  $endereco;
+  public string  $cpf;
+  public string  $creation_time;
+  public string  $modification_time;
 
-  // public function __construct($id=1, $email="", $senha="", $nome="", $foto="", $tel="", $endereco="", $cpf="", $creation_time="", $modification_time="") {
-  //   $this->id = $id;
-  //   $this->email = $email;
-  //   $this->senha = $senha;
-  //   $this->nome = $nome;
-  //   $this->foto = $foto;
-  //   $this->tel = $tel;
-  //   $this->endereco = $endereco;
-  //   $this->cpf = $cpf;
-  //   $this->creation_time = $creation_time;
-  //   $this->modification_time = $modification_time;
-  // }
+  public function __construct($c=0, $id=0, $email="", $senha="", $nome="", $foto="", $tel="", $endereco="", $cpf="", $creation_time="", $modification_time="") {
+    if($c){
+      $this->id = $id;
+      $this->email =  $email;
+      $this->senha = $senha;
+      $this->nome = $nome;
+      $this->foto = $foto;
+      $this->tel = $tel;
+      $this->endereco = $endereco;
+      $this->cpf = $cpf;
+      $this->creation_time = $creation_time;
+      $this->modification_time = $modification_time;
+    }
+  }
 
 
 

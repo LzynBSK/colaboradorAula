@@ -71,7 +71,7 @@ class UsuarioDAO
         return false;
     }
 
-    public function select($filtro=""){
+    public function select($filtro=""):array|bool{
         $cmdSql = 'SELECT * FROM usuario WHERE email LIKE :email OR nome LIKE :nome or cpf LIKE :cpf or tel LIKE :tel';
         try{
             $cx = $this->pdo->prepare($cmdSql);
@@ -80,11 +80,8 @@ class UsuarioDAO
             $cx->bindValue(':cpf',"%$filtro%");
             $cx->bindValue(':tel',"%$filtro%");
             $cx->execute();
-            if($cx->rowCount() > 0){
-                $cx->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
-                return $cx->fetchAll();
-            }
-            return false;
+            $cx->setFetchMode(PDO::FETCH_CLASS, 'Usuario');
+            return $cx->fetchAll();
         }
         catch (\PDOException $e) {
             $this->erro = 'Erro ao selecionar usuário: ' . $e->getMessage();
