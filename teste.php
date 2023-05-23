@@ -8,59 +8,33 @@
 </head>
 <body>
 <form method="post">
-  <label for="nome">Nome:</label>
-  <input type="text" id="nome" name="nome" required>
+  <label for="saque">Saque:</label>
+  <input type="text" id="saque" name="saque" required>
   <br>
-  <label for="email">E-mail:</label>
-  <input type="email" id="email" name="email" required>
+  <label for="url">Url:</label>
+  <input type="url" id="url" name="url" required>
   <br>
-  <label for="senha">Senha:</label>
-  <input type="password" id="senha" name="senha" required>
-  <br>
-  <label for="foto">Foto:</label>
-  <input type="text" id="foto" name="foto">
-  <br>
-  <label for="tel">Telefone:</label>
-  <input type="text" id="tel" name="tel">
-  <br>
-  <label for="endereco">Endereço:</label>
-  <input type="text" id="endereco" name="endereco">
-  <br>
-  <label for="cpf">CPF:</label>
-  <input type="text" id="cpf" name="cpf" required>
-  <br>
+
   <input type="submit" value="Cadastrar">
 </form>
     <?php
-    require_once 'model/UsuarioDAO.php';
-    require_once 'model/Usuario.php';
+    require_once 'model/ColaboradorDAO.php';
+    require_once 'model/Colaborador.php';
     
     // verifica se os dados foram enviados pelo formulário
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // obtém os dados do formulário
-        $nome = $_POST['nome'];
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
-        $foto = $_POST['foto'];
-        $tel = $_POST['tel'];
-        $endereco = $_POST['endereco'];
-        $cpf = $_POST['cpf'];
+      $saque = $_POST['saque'];
+      $url = $_POST['url'];
     
       // cria um novo objeto Usuario com os dados do formulário
-      $usuario = new Usuario(0, $email, $senha, $nome, $foto, $tel, $endereco, $cpf, "", "");
+      $colaborador = new Colaborador(true, 0, $saque, $url, "", "");
     
-      var_dump($usuario);
+      var_dump($colaborador);
 
       // cria um novo objeto UsuarioDAO e insere o novo usuário no banco de dados
-      $usuarioDAO = new UsuarioDAO();
-      $usuario = $usuarioDAO->insert($usuario);
-      if($usuario){
-        var_dump($usuario);
-      }
-      else{
-        var_dump($usuarioDAO->getErro());
-      }         
-      
+      $colaboradorDAO = new ColaboradorDAO();
+      $colaborador = $colaboradorDAO->insert($colaborador);
     }
 
     // $usuarioDAO = new UsuarioDAO();
